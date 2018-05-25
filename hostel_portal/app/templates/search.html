@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Search</title>
+
+<link href="/static/stucss/bootstrap.min.css" rel="stylesheet">
+<link href="/static/stucss/datepicker3.css" rel="stylesheet">
+<link href="/static/stucss/bootstrap-table.css" rel="stylesheet">
+<link href="/static/stucss/styles.css" rel="stylesheet">
+
+<!--Icons-->
+<script src="/static/stujs/lumino.glyphs.js"></script>
+<script src="/static/request.js"></script>
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+<style>
+.btn-link{
+  border:none;
+  outline:none;
+  background:none;
+  cursor:pointer;
+  color:#0000EE;
+  padding:0;
+  text-decoration:underline;
+  font-family:inherit;
+  font-size:inherit;
+}
+</style>
+
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><span>HOSTELS</span>@IIIT</a>
+				<ul class="user-menu">
+					<li class="dropdown pull-right">
+						<a href="/logout" target=""><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>Logout</a>
+											</li>
+				</ul>
+			</div>
+							
+		</div><!-- /.container-fluid -->
+	</nav>
+		
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<form role="search" action="/student/search" method="POST">
+			<div class="form-group">
+				<input type="text" class="form-control" name="searchvalue" placeholder="Search">
+			</div>
+		</form>
+		<ul class="nav menu">
+		<li ><a href="/student/home/<username>" target=""><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
+			<li ><a href="/student/complaint" target=""><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Complaint</a></li>   
+		<li role="presentation" class="divider"></li>
+		
+	
+	</div><!--/.sidebar-->
+		
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Search Results</h1>
+			</div>
+		</div><!--/.row-->
+				
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">Student Details</div>
+					<div class="panel-body">
+						<table data-toggle="table"   >
+						    <thead>
+                <tr>
+                    <th>name</th>
+                    <th>roll_no</th>
+                    <th>email</th>
+                    <th>room no</th>
+                    <th>hostel</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in requests %}
+                <tr>
+                    <td ><form action="/student/details" method="post">
+  				<button type="submit" name="detailval" value="{{student.roll_no}}" class="btn-link">{{student.name}}</button>
+				</form>
+                </td>
+                    <td>{{student.roll_no}}</td>
+                    <td>{{student.email}}</td>
+                    <td>{{student.room_no}}</td>
+                    <td>{{student.hostel}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->	
+			
+		
+	</div><!--/.main-->
+
+	<script src="/static/stujs/jquery-1.11.1.min.js"></script>
+	<script src="/static/stujs/bootstrap.min.js"></script>
+	<script src="/static/stujs/bootstrap-table.js"></script>
+	<script>
+		!function ($) {
+			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
+				$(this).find('em:first').toggleClass("glyphicon-minus");	  
+			}); 
+			$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		}(window.jQuery);
+
+		$(window).on('resize', function () {
+		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function () {
+		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script>	
+</body>
+
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student - Dashboard</title>
+
+<link href="/static/stucss/bootstrap.min.css" rel="stylesheet">
+<link href="/static/stucss/datepicker3.css" rel="stylesheet">
+<link href="/static/stucss/styles.css" rel="stylesheet">
+
+<!--Icons-->
+<script src="/static/stujs/lumino.glyphs.js"></script>
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+<style >
+
+.user-row {
+    margin-bottom: 14px;
+}
+
+.user-row:last-child {
+    margin-bottom: 0;
+}
+
+.dropdown-user {
+    margin: 13px 0;
+    padding: 5px;
+    height: 100%;
+}
+
+.dropdown-user:hover {
+    cursor: pointer;
+}
+
+.table-user-information > tbody > tr {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+.table-user-information > tbody > tr:first-child {
+    border-top: 0;
+}
+
+
+.table-user-information > tbody > tr > td {
+    border-top: 0;
+}
+.toppad
+{margin-top:20px;
+}
+</style>
+<script>
+$(document).ready(function() {
+    var panels = $('.user-infos');
+    var panelsButton = $('.dropdown-user');
+    panels.hide();
+
+    //Click dropdown
+    panelsButton.click(function() {
+        //get data-for attribute
+        var dataFor = $(this).attr('data-for');
+        var idFor = $(dataFor);
+
+        //current button
+        var currentButton = $(this);
+        idFor.slideToggle(400, function() {
+            //Completed slidetoggle
+            if(idFor.is(':visible'))
+            {
+                currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
+            }
+            else
+            {
+                currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
+            }
+        })
+    });
+    
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('button').click(function(e) {
+        e.preventDefault();
+        alert("This is a demo.\n :-)");
+    });
+});
+$(document).ready(function(){
+    // Check Radio-box
+    $(".rating input:radio").attr("checked", false);
+
+    $('.rating input').click(function () {
+        $(".rating span").removeClass('checked');
+        $(this).parent().addClass('checked');
+    });
+
+    $('input:radio').change(
+      function(){
+        var userRating = this.value;
+        alert(userRating);
+    }); 
+});
+</script>
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><span>Hostels</span>@IIIT</a>
+				<ul class="user-menu">
+					<li class="dropdown pull-right">
+						<a href="/logout" target=""><svg class="glyph stroked male-user" ><use xlink:href="#stroked-male-user"></use></svg>Logout </a>
+
+					</li>
+				</ul>
+			</div>
+							
+		</div><!-- /.container-fluid -->
+	</nav>
+		
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+	<form role="search" action="/student/search" method="POST">
+			<div class="form-group">
+
+				<input type="text" class="form-control" name="searchvalue" placeholder="Search">
+			</div>
+		</form>
+		<ul class="nav menu">
+			<li class="active"><a href="/student/home/<username>" target=""><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
+			<li ><a href="/student/complaint" target=""><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Complaint</a></li>
+      
+			<li role="presentation" class="divider"></li>
+		</ul>
+	</div><!--/.sidebar-->
+		
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Dashboard</h1>
+			</div>
+		</div><!--/.row-->
+		
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+					<div class="container">
+          
+       </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+   
+   
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">MY PROFILE</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>NAME:</td>
+                        <td>{{detail.name}}</td>
+                      </tr>
+                      <tr>
+                        <td>ROLLNO:</td>
+                        <td>{{detail.roll_no}}</td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td>{{detail.email}}</td>
+                      </tr>
+                   
+                      <tr>
+                        <td>Hostel</td>
+                        <td>{{detail.hostel}}</td>
+                      </tr>
+                      <tr>
+                        <td>Room no</td>
+                        <td>{{detail.room_no}}</td>
+                      </tr>
+                        <tr>
+                        <td>Home Address</td>
+                        <td>{{detail.address}}</td>
+                      </tr>
+                      <tr>
+                        <td>Parents name</td>
+                        <td>{{detail.parents_name}}</td>
+                      </tr>
+                        <td>Personal Number</td>
+                        <td>{{detail.personal_no}}</td>
+                           
+                      </tr>
+                      <tr>
+                        <td>Parents number</td>
+                        <td>{{detail.parents_no}}</td>
+                      </tr>
+                      <tr>
+                        <td>Peer rating</td>
+                        <td><span style="color:blue;font-size:20px;">{{ rating }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+                
+          </div>
+        </div>
+      </div>
+    </div>	
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-xs-6 col-md-3">
+				<div class="panel panel-default">
+					
+				</div>
+			</div>
+		</div><!--/.row-->
+	</div>	<!--/.main-->
+
+	<script src="/static/stujs/jquery-1.11.1.min.js"></script>
+	<script src="/static/stujs/bootstrap.min.js"></script>
+	<script src="/static/stujs/chart.min.js"></script>
+	<script src="/static/stujs/chart-data.js"></script>
+	<script src="/static/stujs/easypiechart.js"></script>
+	<script src="/static/stujs/easypiechart-data.js"></script>
+	<script src="/static/stujs/bootstrap-datepicker.js"></script>
+	<script>
+		$('#calendar').datepicker({
+		});
+
+		!function ($) {
+		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){          
+		        $(this).find('em:first').toggleClass("glyphicon-minus");      
+		    }); 
+		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		}(window.jQuery);
+
+		$(window).on('resize', function () {
+		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function () {
+		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script>	
+</body>
+
+</html>

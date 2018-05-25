@@ -1,0 +1,14 @@
+student-email          	           password   register-status
+a@students.iiit.ac.in	  a@12345678    yes        
+b@students.iiit.ac.in	  b@12345678    yes
+c@students.iiit.ac.in	  c@12345678     no
+d@students.iiit.ac.in	  d@12345678     no
+e@students.iiit.ac.in	  e@12345678    yes
+f@students.iiit.ac.in	  f@12345678    yes
+g@students.iiit.ac.in	  g@12345678     no
+h@students.iiit.ac.in	  h@12345678     no
+
+
+admin-email                  password
+admin1@facullty.iiit.ac.in    admin1@123
+admin2@facullty.iiit.ac.in    admin2@123
